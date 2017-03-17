@@ -29,10 +29,10 @@
 #include <utility>
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::depends(RcppEigen)]]
 #include <RcppArmadillo.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 
 #ifdef _OPENMP
@@ -55,12 +55,12 @@ namespace netreg
 
         cv_fold(std::vector<int>& train_idxs,
                 std::vector<int>& test_idxs,
-                arma::Mat<double>& X,
-                arma::Mat<double>& Y):
+                Eigen::MatrixXd& X,
+                Eigen::MatrixXd& Y):
             train_indexes_(train_idxs.size()),
             test_indexes_(test_idxs.size()),
-            train_txx_rows_(X.n_cols),
-            train_txy_(X.n_cols, Y.n_cols)
+            train_txx_rows_(X.cols()),
+            train_txy_(X.cols(), Y.cols())
         {
             // set training uvec
             for (unsigned int j = 0; j < train_idxs.size(); ++j)
@@ -76,9 +76,9 @@ namespace netreg
             /*
              * Set training matrices
              */
-            arma::Mat<double> Xtrain = X.rows(train_indexes_);
-            arma::Mat<double> Ytrain = Y.rows(train_indexes_);
-            arma::Mat<double> TXtrain = Xtrain.t();
+            Eigen::MatrixXd Xtrain = X.rows(train_indexes_);
+            Eigen::MatrixXd Ytrain = Y.rows(train_indexes_);
+            Eigen::MatrixXd TXtrain = Xtrain.t();
 
             // safe the train matrix txy
             train_txy_ = TXtrain * Ytrain;

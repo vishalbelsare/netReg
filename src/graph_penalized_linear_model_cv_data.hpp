@@ -32,10 +32,10 @@
 #include <string>
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 
 // #include <iostream>
@@ -74,7 +74,7 @@ namespace netreg
          * @param fold_ids fold id mappings
          */
         graph_penalized_linear_model_cv_data
-            (double *const  x,  double *const y,
+            (double *const x, double *const y,
              double *const gx, double *const gy,
              const int n, const int p, const int q,
              const double lambda, const double alpha,
@@ -87,55 +87,6 @@ namespace netreg
               fold_ids_(design().n_rows), cvset_(n, nfolds, X, Y)
         {
             set_fold_ids();
-
-            // std::cout << "X" << '\n';
-            // for (size_t i = 0; i < X.n_rows; i++) {
-            //   for (size_t j = 0; j < X.n_cols; j++) {
-            //     std::cout << X(i, j) <<  " ";
-            //   }
-            //   std::cout <<  '\n';
-            // }
-            // std::cout <<  '\n';
-            // std::cout << "Y" << '\n';
-            // for (size_t i = 0; i < Y.n_rows; i++) {
-            //   for (size_t j = 0; j < Y.n_cols; j++) {
-            //     std::cout << Y(i, j) <<  " ";
-            //   }
-            //   std::cout <<  '\n';
-            // }
-            // std::cout <<  '\n';
-            // std::cout << "txy" << '\n';
-            // for (size_t i = 0; i < TXY.n_rows; i++) {
-            //   for (size_t j = 0; j < TXY.n_cols; j++) {
-            //     std::cout << TXY(i, j) <<  " ";
-            //   }
-            //   std::cout <<  '\n';
-            // }
-            // std::cout <<  '\n';
-            // std::cout << "txx" << '\n';
-            // for (size_t i = 0; i < txx_rows_.size(); i++) {
-            //   for (size_t j = 0; j < txx_rows_[i].size(); j++) {
-            //     std::cout << txx_rows_[i](j) <<  " ";
-            //   }
-            //   std::cout <<  '\n';
-            // }
-            // std::cout <<  '\n';
-            // std::cout << "ly" << '\n';
-            // for (size_t i = 0; i < LY.n_rows; i++) {
-            //   for (size_t j = 0; j < LY.n_cols; j++) {
-            //     std::cout << LY(i, j) <<  " ";
-            //   }
-            //   std::cout <<  '\n';
-            // }
-            // std::cout <<  '\n';
-            // std::cout << "lx" << '\n';
-            // for (size_t i = 0; i < lx_rows_.size(); i++) {
-            //   for (size_t j = 0; j < lx_rows_[i].size(); j++) {
-            //     std::cout << lx_rows_[i](j) <<  " ";
-            //   }
-            //   std::cout <<  '\n';
-            // }
-            // std::cout <<  '\n';
         }
 
         /**

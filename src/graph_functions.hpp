@@ -26,10 +26,10 @@
 #define NETREG_GRAPH_FUNCTIONS_HPP
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 
 namespace netreg
@@ -42,7 +42,7 @@ namespace netreg
     * @param m ncols of y
     * @return the normalized laplacian
     */
-   arma::Mat<double> laplacian(const double * x, int n, int m, double px);
+   Eigen::MatrixXd laplacian(const double * x, int n, int m, double px);
 
 }
 #endif //NETREG_GRAPH_FUNCTIONS_HPP

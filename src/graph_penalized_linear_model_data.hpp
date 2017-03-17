@@ -12,10 +12,10 @@
 #include <vector>
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 
 #ifdef _OPENMP
@@ -64,14 +64,14 @@ namespace netreg
             : penalized_linear_model_data(x, y, n, p, q, lambda,
                                           alpha, niter, thresh, fam),
               psi_gx(psi_gx), psi_gy(psi_gy),
-              GX(gx, p, p, false, true), GY(gy, q, q, false, true),
+              GX(gx, p, p), GY(gy, q, q),
               LX(laplacian(gx, p, p, psi_gx)),
               LY(laplacian(gy, q, q, psi_gy)),
               lx_rows_(LX.n_rows)
         {
             // copies LX rows as single vectors so that access can be faster
             #pragma omp parallel for
-            for (std::vector<arma::Row<double> >::size_type i = 0;
+            for (std::vector< Eigen::RowVectorXd >::size_type i = 0;
                  i < LX.n_rows; ++i)
             {
                 lx_rows_[i] = LX.row(i);
@@ -102,12 +102,12 @@ namespace netreg
          *
          * @return reference to laplacian matrix
          */
-        arma::Mat<double>& lx()
+        Eigen::MatrixXd& lx()
         {
             return LX;
         }
 
-        std::vector<arma::Row<double> >& lx_rows()
+        std::vector< Eigen::RowVectorXd >& lx_rows()
         {
             return lx_rows_;
         }
@@ -117,7 +117,7 @@ namespace netreg
          *
          * @return reference to laplacian matrix
          */
-        arma::Mat<double>& ly()
+        Eigen::MatrixXd& ly()
         {
             return LY;
         }
@@ -125,11 +125,11 @@ namespace netreg
     protected:
         const double psi_gx;  // Penalization vector for GX
         const double psi_gy;  // Penalization vector for GY
-        arma::Mat<double> GX;    // prior graph for the design matrix
-        arma::Mat<double> GY;    // prior graph for response matrix
-        arma::Mat<double> LX;    // Normalized Laplacian of GX
-        arma::Mat<double> LY;    // Normalized Laplacian of GY
-        std::vector<arma::Row<double>> lx_rows_;
+        Eigen::MatrixXd GX;    // prior graph for the design matrix
+        Eigen::MatrixXd GY;    // prior graph for response matrix
+        Eigen::MatrixXd LX;    // Normalized Laplacian of GX
+        Eigen::MatrixXd LY;    // Normalized Laplacian of GY
+        std::vector< Eigen::RowVectorXd > lx_rows_;
     };
 }
 #endif //NETREG_GRAPHPENALIZEDLINEARMODELDATA_HPP

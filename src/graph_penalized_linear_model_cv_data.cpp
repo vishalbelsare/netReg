@@ -34,6 +34,7 @@ namespace netreg
     {
         if (static_cast<int>(fold_ids_.size()) != N)
             fold_ids_.resize(static_cast<std::vector<int>::size_type>(N));
+            
         #pragma omp parallel for
         for (int i = 0; i < cvset_.fold_count(); i++)
         {
