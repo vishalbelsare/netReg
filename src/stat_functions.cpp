@@ -26,13 +26,13 @@
 
 namespace netreg
 {
-    arma::Col<double> intercept(arma::Mat<double> &X,
-                                arma::Mat<double> &Y,
-                                arma::Mat<double> &B)
+    Eigen::VectorXd<double> intercept(Eigen::MatrixXd &X,
+                                      Eigen::MatrixXd &Y,
+                                      Eigen::MatrixXd &B)
     {
-        arma::Mat<double> terr = (Y - (X * B)).t();
-        arma::Col<double> rep(Y.n_rows, arma::fill::ones);
-        arma::Col<double> intr = (terr * rep) / Y.n_rows;
+        Eigen::MatrixXd terr = (Y - (X * B)).transpose();
+        Eigen::VectorXd rep = VectorXf::Ones(Y.rows());
+        Eigen::VectorXd intr = (terr * rep) / Y.rows();
         return intr;
     }
 

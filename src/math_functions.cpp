@@ -29,9 +29,9 @@
 namespace netreg
 {
 
-    double abs_dprod(const arma::Col<double> &lhs, const arma::Col<double> &rhs)
+    double abs_dprod(const Eigen::VectorXd& lhs, const Eigen::VectorXd& rhs)
     {
-        return std::abs(arma::dot(lhs, rhs));
+        return std::abs(lhs.dot(rhs));
     }
 
     template<typename T>

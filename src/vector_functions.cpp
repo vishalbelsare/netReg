@@ -26,11 +26,10 @@
 #include <numeric>
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
 #include <random>
-#include "armadillo"
 #endif
 
 namespace netreg

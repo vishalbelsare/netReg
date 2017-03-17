@@ -25,10 +25,10 @@
 #define NETREG_STAT_FUNCTIONS_HPP
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 
 #include <vector>
@@ -43,9 +43,9 @@ namespace netreg
      * @param B the estimated coefficients
      * @return returns a column vector
      */
-    arma::Col<double> intercept(arma::Mat<double>& X,
-                                arma::Mat<double>& Y,
-                                arma::Mat<double>& B);
+    Eigen::VectorXd intercept(Eigen::MatrixXd& X,
+                                Eigen::MatrixXd& Y,
+                                Eigen::MatrixXd& B);
 
     /**
      * Calculates the partial residual of the current coefficient that is estimated.
@@ -56,13 +56,13 @@ namespace netreg
      * @param pi the current index of the column of X
      * @param qi the current index of the column of Y
      */
-    inline double partial_least_squares(arma::rowvec& txx_rows,
-                                        arma::Mat<double>& txy,
-                                        arma::Mat<double>& cfs,
+    inline double partial_least_squares(Eigen::RowVectorXd& txx_rows,
+                                        Eigen::MatrixXd& txy,
+                                        Eigen::MatrixXd& cfs,
                                         const int pi, const int qi)
     {
         return txy(pi, qi) + (txx_rows(pi) * cfs(pi, qi))
-               - arma::accu(txx_rows * cfs.col(qi));
+               - (txx_rows * cfs.col(qi)).sum();
     }
 }
 #endif //NETREG_STAT_FUNCTIONS_HPP

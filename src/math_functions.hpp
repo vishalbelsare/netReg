@@ -28,10 +28,10 @@
 #include <cmath>
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 
 namespace netreg
@@ -44,8 +44,7 @@ namespace netreg
      * @param pi the column of matrix<double> source1
      * @param qi the column of matrix<double> source2
      */
-    inline double abs_dprod(const arma::Col<double> &lhs,
-                     const arma::Col<double> &rhs);
+    double abs_dprod(Eigen::VectorXd& lhs, Eigen::VectorXd& rhs);
 
     /**
      * Calculate a soft-thresholded normalized coefficient.

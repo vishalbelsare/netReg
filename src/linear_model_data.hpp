@@ -30,10 +30,10 @@
 #include <utility>
 
 #ifdef USE_RCPPARMADILLO
-// [[Rcpp::depends(RcppArmadillo)]]
-#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppEigen)]]
+#include <RcppEigen.h>
 #else
-#include "armadillo"
+#include <Eigen/Dense>
 #endif
 #include "family.hpp"
 
@@ -155,7 +155,7 @@ namespace netreg
          *
          * @return a reference to X'Y matrix.
          */
-        arma::Mat<double> &txy() 
+        arma::Mat<double> &txy()
         {
             return TXY;
         }
@@ -165,7 +165,7 @@ namespace netreg
          *
          * @return the max number of iterations
          */
-        const int max_iter() 
+        const int max_iter()
         {
             return N_ITER;
         }
