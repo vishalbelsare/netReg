@@ -1,13 +1,13 @@
 # netReg <img src="https://rawgit.com/dirmeier/netReg/master/inst/sticker/sticker.png" align="right" width="160px"/>
 
-[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Project Life](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
-[![ci](https://github.com/dirmeier/netReg/workflows/ci/badge.svg)](https://github.com/dirmeier/netReg/actions?query=workflow%3Aci)
-[![codecov](https://codecov.io/gh/dirmeier/netReg/branch/master/graph/badge.svg)](https://codecov.io/gh/dirmeier/netReg)
+[![Project Status](http://www.repostatus.org/badges/latest/unsupported.svg)](http://www.repostatus.org/#unsupported)
 
 Generalized linear regression models with network-regularization in `R`. Now with `TensorFlow`.
 
 ## About
+
+> [!NOTE]
+> ⚠️ The package is no longer actively maintained or developed.
 
 Modelling dependencies using linear regression models is often complicated when the 
 analysed data-sets are high-dimensional and less observations than variables 
@@ -99,4 +99,4 @@ If `netReg` was useful for you or your work, it would be great if you cited it l
 
 ## Author
 
-Simon Dirmeier <<a href="mailto:simon.dirmeier @ web.de">simon.dirmeier @ web.de</a>>
+Simon Dirmeier <a href="mailto:sfyrbnd @ pm me">sfyrbnd @ pm me</a>
